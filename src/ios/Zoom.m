@@ -36,9 +36,11 @@
         {
             // Assign delegate.
             authService.delegate = self;
+            
             // Assign key and secret.
-            authService.clientKey = appKey;
-            authService.clientSecret = appSecret;
+            //authService.clientKey = appKey;
+            //authService.clientSecret = appSecret;
+            authService.jwtToken = appKey;
             // Perform SDK auth.
             [authService sdkAuth];
         }
@@ -56,7 +58,7 @@
     dispatch_async(dispatch_get_main_queue(), ^(void) {
         if (username != nil && [username isKindOfClass:[NSString class]] && [username length] > 0 && password != nil && [password isKindOfClass:[NSString class]]  && [password length]) {
             // Try to log user in
-            [[[MobileRTC sharedRTC] getAuthService] loginWithEmail:username password:password remeberMe:YES];
+            [[[MobileRTC sharedRTC] getAuthService] loginWithEmail:username password:password rememberMe:YES];
         } else {
             NSMutableDictionary *res = [[NSMutableDictionary alloc] init];
             res[@"result"] = @NO;
@@ -137,6 +139,10 @@
                                         };
             // Join meeting.
             MobileRTCMeetError response = [ms joinMeetingWithDictionary:paramDict];
+            // if Join meeting succeeds, then hide/show password on screen
+            if (response == (MobileRTCMeetError)0) {
+                [[MobileRTC sharedRTC] getMeetingSettings].meetingPasswordHidden = true;
+            }
             if (DEBUG) {
                 NSLog(@"Join a Meeting res:%d", response);
             }
