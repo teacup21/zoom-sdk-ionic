@@ -37,8 +37,8 @@
             // Assign delegate.
             authService.delegate = self;
             // Assign key and secret.
-            //authService.clientKey = appKey;
-            //authService.clientSecret = appSecret;
+            authService.clientKey = appKey;
+            authService.clientSecret = appSecret;
             authService.jwtToken = appKey;
             // Perform SDK auth.
             [authService sdkAuth];
