@@ -246,6 +246,12 @@
                 } else {
                     [[MobileRTC sharedRTC] getMeetingSettings].meetingLeaveHidden = NO;
                 }
+                // no_gallery_view
+                if ([options objectForKey:@"no_gallery_view"] != nil) {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView: [options[@"no_gallery_view"] boolValue]];
+                } else {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView:NO];
+                }
                 // participant_id
                 if ([options objectForKey:@"participant_id"] != nil) {
                     participantID = options[@"participant_id"];
@@ -403,6 +409,12 @@
                     [[MobileRTC sharedRTC] getMeetingSettings].meetingLeaveHidden = [options[@"no_button_leave"] boolValue];
                 } else {
                     [[MobileRTC sharedRTC] getMeetingSettings].meetingLeaveHidden = NO;
+                }
+                // no_gallery_view
+                if ([options objectForKey:@"no_gallery_view"] != nil) {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView: [options[@"no_gallery_view"] boolValue]];
+                } else {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView:NO];
                 }
             }
             // Prepare start meeting param.
@@ -586,6 +598,12 @@
                     [[MobileRTC sharedRTC] getMeetingSettings].meetingLeaveHidden = [options[@"no_button_leave"] boolValue];
                 } else {
                     [[MobileRTC sharedRTC] getMeetingSettings].meetingLeaveHidden = NO;
+                }
+                // no_gallery_view
+                if ([options objectForKey:@"no_gallery_view"] != nil) {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView: [options[@"no_gallery_view"] boolValue]];
+                } else {
+                    [[[MobileRTC sharedRTC] getMeetingSettings] disableGalleryView:NO];
                 }
             }
             
