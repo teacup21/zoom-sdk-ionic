@@ -210,7 +210,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      * @param password      user's Zoom password.
      * @param callbackContext cordova callback context.
      */
-    private void login(String username, String password, CallbackContext callbackContext) {
+    private void login(final String username, final String password, final CallbackContext callbackContext) {
 
         if (!this.mZoomSDK.isInitialized()) {
             // Zoom SDK instance has not been initialized.
@@ -310,7 +310,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      *
      * @param callbackContext   cordova callback context.
      */
-    private void isLoggedIn(CallbackContext callbackContext) {
+    private void isLoggedIn(final CallbackContext callbackContext) {
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
@@ -342,7 +342,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      * @param option            meeting options.
      * @param callbackContext   cordova callback context.
      */
-    private void joinMeeting(String meetingNo, String meetingPassword, String displayName, JSONObject option, CallbackContext callbackContext) {
+    private void joinMeeting(String meetingNo, String meetingPassword, String displayName, JSONObject option, final CallbackContext callbackContext) {
 
         if (DEBUG) { Log.v(TAG, "********** Zoom's join meeting called ,meetingNo=" + meetingNo + " **********"); }
 
@@ -385,10 +385,10 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
         }
 
         // Get meeting service instance.
-        MeetingService meetingService = zoomSDK.getMeetingService();
+        final MeetingService meetingService = zoomSDK.getMeetingService();
 
         // Configure join meeting parameters.
-        JoinMeetingParams params = new JoinMeetingParams();
+        final JoinMeetingParams params = new JoinMeetingParams();
         params.displayName = displayName;
         params.meetingNo = meetingNumber;
 
@@ -399,7 +399,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
 
         if (option != null) {
             // If meeting option is provided, setup meeting options and join meeting.
-            JoinMeetingOptions opts = new JoinMeetingOptions();
+            final JoinMeetingOptions opts = new JoinMeetingOptions();
             try {
                 opts.custom_meeting_id = option.isNull("custom_meeting_id")? null : option.getString("custom_meeting_id");
                 opts.participant_id = option.isNull("participant_id")? null : option.getString("participant_id");
@@ -517,7 +517,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      * @param option            meeting option
      * @param callbackContext   cordova callback context
      */
-    private void startMeeting(String meetingNo, String displayName, String zoomToken, String zoomAccessToken, String userId, JSONObject option, CallbackContext callbackContext) {
+    private void startMeeting(String meetingNo, String displayName, String zoomToken, String zoomAccessToken, String userId, JSONObject option, final CallbackContext callbackContext) {
 
         if (meetingNo == null || meetingNo.trim().isEmpty() || meetingNo.equals("null")) {
             callbackContext.error("Meeting number cannot be empty");
@@ -587,7 +587,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
         }
 
         // Configure meeting options.
-        StartMeetingOptions opts = new StartMeetingOptions();
+        final StartMeetingOptions opts = new StartMeetingOptions();
         if (option != null) {
             try {
                 opts.custom_meeting_id = option.isNull("custom_meeting_id")? null : option.getString("custom_meeting_id");
@@ -654,7 +654,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
 
         if (zoomSDK.isLoggedIn()) {
             // if user is logged in, just start the meeting.
-            StartMeetingParams4NormalUser params = new StartMeetingParams4NormalUser();
+            final StartMeetingParams4NormalUser params = new StartMeetingParams4NormalUser();
             params.meetingNo = meetingNumber;
             cordova.getThreadPool().execute(new Runnable() {
                 @Override
@@ -679,7 +679,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
                 Log.v(TAG, "[userId==="+userId);
             }
             if (zoomToken.length() != 0 && zoomAccessToken.length() != 0 && userId.length() != 0) {
-                StartMeetingParamsWithoutLogin params = new StartMeetingParamsWithoutLogin();
+                final StartMeetingParamsWithoutLogin params = new StartMeetingParamsWithoutLogin();
                 params.userId = userId;
                 params.zoomToken = zoomToken;
                 params.userType = MeetingService.USER_TYPE_API_USER;
@@ -720,7 +720,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      * @param option            meeting options
      * @param callbackContext   cordova callback context
      */
-    private void startInstantMeeting(JSONObject option, CallbackContext callbackContext) {
+    private void startInstantMeeting(JSONObject option, final CallbackContext callbackContext) {
         PluginResult pluginResult = null;
         // Get Zoom SDK instance.
         ZoomSDK zoomSDK = ZoomSDK.getInstance();
@@ -739,8 +739,8 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
             return;
         }
 
-        MeetingService meetingService = zoomSDK.getMeetingService();
-        InstantMeetingOptions opts = new InstantMeetingOptions();
+        final MeetingService meetingService = zoomSDK.getMeetingService();
+        final InstantMeetingOptions opts = new InstantMeetingOptions();
         // If user provides meeting options, configure them.
         if (option != null) {
             try {
@@ -834,7 +834,7 @@ public class Zoom extends CordovaPlugin implements ZoomSDKAuthenticationListener
      * @param languageTag       IETF BCP 47 language tag string
      * @param callbackContext   cordova callback context
      */
-    private void setLocale(String languageTag, CallbackContext callbackContext) {
+    private void setLocale(final String languageTag, final CallbackContext callbackContext) {
         try {
             cordova.getActivity().runOnUiThread(new Runnable() {
                 @Override
