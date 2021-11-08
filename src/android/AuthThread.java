@@ -109,6 +109,7 @@ public class AuthThread implements Callable<Boolean>, ZoomSDKInitializeListener 
         if (DEBUG) { Log.v(TAG, "Init parameter set"); }
         this.initParams.appKey = appKey;
         this.initParams.appSecret = appSecret;
+        this.initParams.jwtToken = appKey;
         this.initParams.domain = webDomain;
         this.initParams.enableLog = true;
     }
